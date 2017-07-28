@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Note that I don't recommend using source normally, you should insert the
+# functions directly into your script.
+# shellcheck disable=SC1091
+source ../logger
+
+log "this is a default message."
+log "this is an error message."  error
+log "this is a warning message." warning
+log "this is an ok message."     ok
+log "this is an info message."   info

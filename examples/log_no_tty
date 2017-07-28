@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# This example pulls its data from the log example script in the same
+# directory, demonstrating the no colors when stdout is not a tty.
+#
+# Note that echo here does nothing but run redirect our command.
+# shellcheck disable=SC2005
+echo -n "$("$(dirname "$0")"/log)"

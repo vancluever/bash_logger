@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# log prints a message with an optional priority, which controls the color also
+# printed if a terminal is present. Messages always go to standard error.
+#
+# level is optional, and if not specified defaults to info.
+log() {
+  local message="$1"
+  local level="$2"
+  declare -A colors=(
+    ["error"]="31"   # red
+    ["warning"]="33" # yellow
+    ["ok"]="32"      # green
+    ["info"]="1"     # bold
+    ["reset"]="0"    # here just to note reset code
+  )
+  if [[ -z "${level}" ]] || [[ -z "${colors[$level]}" ]]; then
+    level="info"
+  fi
+  if [[ -t 1 ]]; then
+    echo -e "\e[${colors[$level]}m${message}\e[0m" 1>&2
+  else
+    echo "${message}" 1>&2
+  fi
+}
+
+# log_fatal is a "log MESSAGE error" followed by an "exit 1".
+log_fatal() {
+  local message="$1"
+  log "${message}" error
+  exit 1
+}
